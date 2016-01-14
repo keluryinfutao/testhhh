@@ -1,0 +1,20 @@
+sudo: false
+language: python
+python:
+  - "2.7"
+  - "3.4"
+env:
+  matrix:
+    - $COVPYYAML=cov3-default,coveralls3
+    - $COVPYYAML=cov4-pyyaml,coveralls4
+    - $COVPYYAML=cov3-default,coveralls3
+    - $COVPYYAML=cov4-pyyaml,coveralls4
+install:
+  - pip install coveralls
+# before_script:
+#   - cd code
+script:
+#   - tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/')-$COVPYYAML
+  - coverage run main.py
+after_success:
+  - coveralls
